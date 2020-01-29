@@ -25,8 +25,8 @@ class ArticleFormatting:
         nb_of_words = len(words)
         for word in words:
             if word not in self.corpus.keys():
-                occurence = words.count(word)
-                frequency = occurence / nb_of_words
+                occurrence = words.count(word)
+                frequency = occurrence / nb_of_words
                 self.corpus[word] = frequency
 
     def get_frequency_word(self, word: str) -> float:
@@ -42,4 +42,5 @@ def main():
 
 
 if __name__=="__main__":
+
     main()
