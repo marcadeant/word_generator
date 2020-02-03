@@ -1,11 +1,11 @@
 from dataclasses import dataclass, field
-from typing import Dict
+from typing import List
 import numpy as np
 
 from article_formating import ArticleFormatting
 
 ALPHABET = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u",
-            "v", "w", "x", "y", "z"]
+            "v", "w", "x", "y", "z", " "]
 
 
 @dataclass
@@ -18,19 +18,19 @@ class WordGenerator:
 
         data = self.article_formatting.corpus
         article = " ".join(word for word in data.keys())
-        occurrence_letter_1 = article.count(letter_1)
+        occurrence_letter_2 = article.count(letter_2)
         sequential_occurrence = article.count(letter_1 + letter_2)
-        probability = sequential_occurrence / occurrence_letter_1
+        probability = sequential_occurrence / occurrence_letter_2
 
         return probability
 
-    def get_matrix_probability(self):
+    def get_matrix_probability(self) -> List[List[float]]:
 
         probabilities_list = []
         for letter in ALPHABET:
             probability_list = []
             for letter_ in ALPHABET:
-                prob = self.get_letter_probability(letter, letter_)
+                prob = self.get_letter_probability(letter_, letter)
                 probability_list.append(prob)
             probabilities_list.append(probability_list)
 
@@ -42,7 +42,7 @@ def main():
     file_ = file.read()
     articleformatter = ArticleFormatting(article=file_)
     word_generator = WordGenerator(article_formatting=articleformatter)
-    print(word_generator.get_matrix_probability())
+    print(sum(word_generator.get_matrix_probability()[1]))
 
 
 if __name__ == '__main__':
