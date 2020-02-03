@@ -14,7 +14,7 @@ class WordGenerator:
     language: str = field(default="en")
     topic: str = field(default="Music")
 
-    def get_letter_probability(self, letter_1: str, letter_2: str) -> float:
+    def get_conditional_probability(self, letter_1: str, letter_2: str) -> float:
 
         data = self.article_formatting.corpus
         article = " ".join(word for word in data.keys())
@@ -30,7 +30,7 @@ class WordGenerator:
         for letter in ALPHABET:
             probability_list = []
             for letter_ in ALPHABET:
-                prob = self.get_letter_probability(letter_, letter)
+                prob = self.get_conditional_probability(letter_, letter)
                 probability_list.append(prob)
             probabilities_list.append(probability_list)
 
@@ -42,7 +42,8 @@ def main():
     file_ = file.read()
     articleformatter = ArticleFormatting(article=file_)
     word_generator = WordGenerator(article_formatting=articleformatter)
-    print(sum(word_generator.get_matrix_probability()[1]))
+    print(word_generator.get_matrix_probability())
+
 
 
 if __name__ == '__main__':
