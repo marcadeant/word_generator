@@ -5,7 +5,7 @@ from nltk.tokenize import RegexpTokenizer
 @dataclass
 class ArticleFormatting:
 
-    article: str
+    article: str = field(default='')
     corpus: Dict = field(init=False)
     topic: str = field(default='music')
 
@@ -31,16 +31,3 @@ class ArticleFormatting:
 
     def get_frequency_word(self, word: str) -> float:
         return self.corpus[word]
-
-def main():
-
-    file = open("Articles/Music/Article_1.txt", "r", encoding='UTF8')
-    file_ = file.read()
-    articleformatter = ArticleFormatting(article=file_)
-    data = articleformatter.corpus
-    print(data)
-
-
-if __name__=="__main__":
-
-    main()
