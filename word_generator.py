@@ -7,17 +7,14 @@ from article_formating import ArticleFormatting
 ALPHABET = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u",
             "v", "w", "x", "y", "z"]
 INDEX = {}
-#initialisation of INDEX
+# initialisation of INDEX
 for (a, b) in zip(ALPHABET, range(0, 27)):
     INDEX[a] = b
-
 
 
 @dataclass
 class WordGenerator:
     article_formatting: ArticleFormatting = field(default_factory=ArticleFormatting)
-    language: str = field(default="en")
-    topic: str = field(default="Music")
 
     def get_conditional_probability(self, letter_1: str, letter_2: str) -> float:
 
@@ -41,28 +38,26 @@ class WordGenerator:
 
         return probabilities_list
 
-    #Markov chains implementation
+    # Markov chains implementation
     def forecast_word(self, nb_of_letter: int, initial_state: str) -> str:
 
-        transition_name = [[b+a for a in ALPHABET] for b in ALPHABET]
+        transition_name = [[b + a for a in ALPHABET] for b in ALPHABET]
         # Choose the starting state (First letter of the word generated)
         first_letter = initial_state
         transition_matrix = self.get_matrix_probability()
         final_word_list = [initial_state]
 
         prob = 1
-        i=0
+        i = 0
         while i < nb_of_letter - 1:
-
             p = np.array(transition_matrix[INDEX[first_letter]])
             p /= p.sum()
             change = np.random.choice(transition_name[0], replace=True, p=p)
             letter_next_state = change[-1:]
 
-            prob = prob*transition_matrix[INDEX[first_letter]][INDEX[letter_next_state]]
+            prob = prob * transition_matrix[INDEX[first_letter]][INDEX[letter_next_state]]
             first_letter = letter_next_state
             final_word_list.append(first_letter)
             i += 1
 
         return ''.join(letter for letter in final_word_list)
-

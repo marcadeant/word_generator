@@ -1,4 +1,3 @@
-from typing import List
 import pandas as pd
 from Instagram_request import InstagramRequest
 from article_formating import ArticleFormatting
@@ -11,15 +10,11 @@ from word_generator import WordGenerator
 @dataclass
 class Process:
 
-    article: str = field(default='')
     article_formating: ArticleFormatting = field(default_factory=ArticleFormatting)
     instagram_request: InstagramRequest = field(default_factory=InstagramRequest)
     word_generator: WordGenerator = field(default_factory=WordGenerator)
 
-    def __post_init__(self):
-        self.article_formating = ArticleFormatting(article=self.article)
-
-    def process(self) -> List[str]:
+    def process(self):
         # Use statistical analysies to create a word chain
         self.word_generator = WordGenerator(self.article_formating)
         list_of_word = []
@@ -44,7 +39,5 @@ class Process:
 
 if __name__=='__main__':
 
-    file = open("Articles/Music/Article_1.txt", "r", encoding='UTF8')
-    file_ = file.read()
-    process = Process(article=file_)
+    process = Process()
     process.process()
