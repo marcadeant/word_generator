@@ -2,3 +2,5 @@
 \roadmap.txt
 \words_dictionary.json
 \Articles
+*.pyc
+.DS_Store
