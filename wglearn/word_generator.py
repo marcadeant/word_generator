@@ -33,7 +33,7 @@ class WordGenerator:
         return probabilities_list
 
     # Markov chains implementation
-    def forecast_word(self, nb_of_letter: int, initial_state: str) -> str:
+    def forecast_word(self, nb_of_letter: int, initial_state: str) -> tuple(str, float):
 
         transition_name = [[b + a for a in ALPHABET] for b in ALPHABET]
         # Choose the starting state (First letter of the word generated)
@@ -54,4 +54,5 @@ class WordGenerator:
             final_word_list.append(first_letter)
             i += 1
 
-        return ''.join(letter for letter in final_word_list)
+        res = ''.join(letter for letter in final_word_list)
+        return res, prob
