@@ -17,6 +17,7 @@ class Process:
         # Use statistical analysis to create a word chain
         self.word_generator = WordGenerator(self.article_formating)
         list_of_word = []
+        list_of_prob = []
         availability = []
         for i in range(0, 100):
             word, prob = self.word_generator.forecast_word(6, 'a')
@@ -31,7 +32,7 @@ class Process:
             availability.append(available)
             # sleep(0.5)
 
-        data_dict = {'word': list_of_word, 'availability': availibility, 'prob': list_of_prob}
+        data_dict = {'word': list_of_word, 'availability': availability, 'prob': list_of_prob}
         data_pd = pd.DataFrame.from_dict(data_dict)
         pd.DataFrame.to_csv(data_pd, 'data_word.csv', sep=';')
 

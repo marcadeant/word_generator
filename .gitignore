@@ -4,3 +4,4 @@
 \Articles
 *.pyc
 .DS_Store
+*.xml
