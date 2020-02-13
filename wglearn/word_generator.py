@@ -2,8 +2,8 @@ from dataclasses import dataclass, field
 from typing import List
 import numpy as np
 
-from article_formating import ArticleFormatting
-from constants import INDEX, ALPHABET
+from wglearn.article_formatting import ArticleFormatting
+from wglearn.constants import INDEX, ALPHABET
 
 @dataclass
 class WordGenerator:
@@ -41,7 +41,7 @@ class WordGenerator:
         transition_matrix = self.get_matrix_probability()
         final_word_list = [initial_state]
 
-        prob = 1
+        confidence_index = 0
         i = 0
         while i < nb_of_letter - 1:
             p = np.array(transition_matrix[INDEX[first_letter]])
@@ -49,10 +49,10 @@ class WordGenerator:
             change = np.random.choice(transition_name[0], replace=True, p=p)
             letter_next_state = change[-1:]
 
-            prob = prob * transition_matrix[INDEX[first_letter]][INDEX[letter_next_state]]
+            confidence_index = confidence_index + transition_matrix[INDEX[first_letter]][INDEX[letter_next_state]]
             first_letter = letter_next_state
             final_word_list.append(first_letter)
             i += 1
 
         res = ''.join(letter for letter in final_word_list)
-        return res, prob
+        return res, confidence_index

@@ -1,21 +1,21 @@
 import pandas as pd
-from Instagram_request import InstagramRequest
-from article_formating import ArticleFormatting
+from wglearn.instagram_request import InstagramRequest
+from wglearn.article_formatting import ArticleFormatting
 from dataclasses import dataclass, field
 from time import sleep
 
-from word_generator import WordGenerator
+from wglearn.word_generator import WordGenerator
 
 
 @dataclass
 class Process:
-    article_formating: ArticleFormatting = field(default_factory=ArticleFormatting)
+    article_formatting: ArticleFormatting = field(default_factory=ArticleFormatting)
     instagram_request: InstagramRequest = field(default_factory=InstagramRequest)
     word_generator: WordGenerator = field(default_factory=WordGenerator)
 
     def process(self):
         # Use statistical analysis to create a word chain
-        self.word_generator = WordGenerator(self.article_formating)
+        self.word_generator = WordGenerator(self.article_formatting)
         list_of_word = []
         list_of_prob = []
         availability = []
@@ -38,6 +38,6 @@ class Process:
 
 
 if __name__ == '__main__':
-    article_formating = ArticleFormatting()
-    process = Process(article_formating=article_formating)
+    article_formatting = ArticleFormatting()
+    process = Process(article_formatting=article_formatting)
     process.process()
