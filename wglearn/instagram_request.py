@@ -1,14 +1,8 @@
 from dataclasses import dataclass, field
-import ssl
-from bs4 import BeautifulSoup
-import json
 import requests
-
 from selenium import webdriver
 import json
-
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from time import sleep
 
 from selenium.webdriver.support.expected_conditions import presence_of_element_located
@@ -37,6 +31,7 @@ class InstagramRequest:
 
     def fill_forms(self):
 
+        # response = 1 means that the word is already used
         try:
             with open('/Users/amarcade/Documents/word_generator/auth.json', 'r') as json_file:
                 token = json.load(self.form)
@@ -70,7 +65,6 @@ def main():
     instagram_request = InstagramRequest(word='ahgn')
     response = instagram_request.isavailable()
     print(response)
-    # print(instagram_request.isavailable())
 
 
 if __name__ == '__main__':
